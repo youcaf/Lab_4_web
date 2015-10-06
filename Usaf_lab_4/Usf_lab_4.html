@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+    <html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+		 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <title>Airplane</title>
+
+        <style>
+            html{
+                height: 100%;
+            }
+            @keyframes animatedBackground {
+                from { background-position: 0 0; }
+                to { background-position: 100% 0; }
+            }
+		
+			
+            body{
+                height: 100%;
+                padding:0px;
+                margin:0px;}
+
+
+            .bg-image{
+                background-repeat: repeat-x;
+                width: 100%;
+                height: 100%;
+                background-position: 0px 0px;
+                background-repeat: repeat-x;
+                background-image: url("http://texturefor3d.com/preload-skies/high_res_blue_sky_clouds_texture_4863.JPG");
+                animation: animatedBackground 20s linear infinite;
+				z-index: 1;
+            }
+			
+
+@keyframes obstacle {
+    0%{
+        position: absolute;
+        right: 5%;
+    }
+
+    15%{
+         position: absolute;
+        right: 10%;
+    }
+
+    30%{
+        position: absolute;
+        right: 20%;
+    }
+
+    45%{
+        position: absolute;
+        right: 30%;
+    }
+
+    60%{
+        position: absolute;
+        right: 50%;
+    }
+
+    75%{
+        position: absolute;
+        right: 70%;
+    }
+
+    90%{
+        position: absolute;
+        right: 85%;
+    }
+    100%{
+        position: absolute;
+        right: 100%;
+    }
+
+}
+
+/*
+designing obstacle*/
+.obstacle{
+    
+    z-index: 1000;
+    position: absolute;
+    top: 50px;
+    right: 30px;
+    animation: obstacle 20s linear infinite;
+}
+	
+.obstacle1{
+    z-index: 1000;
+    position: absolute;
+    top: 250px;
+    right: 30px;
+    animation: obstacle 10s linear infinite;
+}	
+        </style>
+
+    </head>
+    <body onload="docReady()" onkeydown="" onkeyup="">
+	
+	<img id="image" src="http://www.cliparthut.com/clip-arts/119/airplane-clip-art-119464.png" style="position:absolute;left:0; top:0;" height="170" width="170">
+    <div class="bg-image"></div>
+<div class="obstacle" >
+<img id="imageObs" src="http://www.cliparthut.com/clip-arts/23/hot-air-balloon-clip-art-23836.png"  height="170" width="170">
+</div>
+<div class="obstacle1">
+<img id="imageObstacle" src="http://www.cliparthut.com/clip-arts/23/hot-air-balloon-clip-art-23836.png"  height="170" width="170">
+</div>
+
+
+
+	 <script type="text/javascript">
+
+            function leftArrowPressed() {
+            var element = document.getElementById("image");
+			var current = parseInt(element.style.left);
+            element.style.left = current - 10 + 'px';
+            }
+
+            function rightArrowPressed() {
+            var element = document.getElementById("image");
+			var current =parseInt(element.style.left);
+            element.style.left = current + 10 + 'px';
+
+            }
+
+            function upArrowPressed() {
+            var element = document.getElementById("image");
+			var current =parseInt(element.style.top);
+            element.style.top =current - 10 + 'px';
+            }
+
+            function downArrowPressed() {
+            var element = document.getElementById("image");
+			var current =parseInt(element.style.top);
+            element.style.top = current + 10 + 'px';
+            }
+
+            function moveSelection(evt) {
+                switch (evt.keyCode) {
+                    case 37:
+                    leftArrowPressed();
+                    break;
+                    case 39:
+                    rightArrowPressed();
+                    break;
+                    case 38:
+                    upArrowPressed();
+                    break;
+                    case 40:
+                    downArrowPressed();
+                    break;
+                    }
+                };
+
+        function docReady()
+        {
+          
+          window.addEventListener('keydown', moveSelection);
+        }
+
+  </script>
+	
+	
+    </body>
+    </html>
