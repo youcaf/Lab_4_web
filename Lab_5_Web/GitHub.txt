@@ -1,0 +1,5 @@
+GitHub Link :  
+
+This task is done in Game.html file 
+There are some images in the folder and CSS is done internally and some inline CSS is also done where necessary.
+I have used javascript to move the plane, detect collision and used CSS animations for obstacles.

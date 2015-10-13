@@ -1,0 +1,180 @@
+<html>
+<head>
+
+	<style>
+	body{
+overflow:hidden;
+margin:0;
+padding:0;}
+
+#Main{
+width:100%;
+height:100%;
+left: 0;
+right: 0; 
+top: 0; 
+bottom: auto;
+overflow:hidden;
+position:absolute;
+background-image:url("background.jpg");
+background-size:cover;
+}
+#Flight-area{
+height:100px; width:200px;position:absolute;
+}
+
+#game-end{
+   position:absolute;
+   width:100%;
+   height:100%;
+   background-image:url("gameover.jpg");
+   z-index:500;
+   background-size:cover;
+   display:block;
+}
+
+
+#obstacle1{
+    -webkit-animation: obstacle1 10s linear infinite;
+    -moz-animation:    obstacle1 10s linear infinite;
+}
+
+#obstacle2{
+    -webkit-animation: obstacle2 15s linear infinite;
+    -moz-animation:    obstacle2 15s linear infinite;
+}
+
+@-webkit-keyframes obstacle1 {
+  0%    { left: 110%; top: 70%}
+  50% { left: 50%; top: 90%}
+  100%   { right: 110%; }
+  
+}
+
+@-webkit-keyframes obstacle2 {
+ 0%    { left: 110%;  top: 70%}
+ 50% { left: 50%; top: 50%}
+  100%   { right: 110%; }
+}
+	</style>
+</head>
+<body onload="loop()" onkeydown="" onkeyup="">
+	<div id="Main" style="left: 0;right: 0; top: 0; bottom: auto">
+    </div>
+	<div id="containerobs1">
+	  <img  id="obstacle1" src="ballon1.png" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index:150 " height="50" width="100"></img>
+	</div>
+		<div id="containerobs2">
+	  <img  id="obstacle2" src="ballon2.png" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index:150 " height="50" width="100"></img>
+	</div>
+	<div id="Flight-area">
+    <img  id="Flight" src="http://www.cliparthut.com/clip-arts/119/airplane-clip-art-119464.png" style="position: absolute; left: 15; right: 15; top: 15; bottom: 0; z-index:200 " height="100" width="200"></img>
+	</div>
+	<div id="game-end" style="display:none"></div>
+	
+	
+	<script type="text/javascript">
+	var collission=false;
+	var vari=setInterval(function(){
+	                 var gameover = document.getElementById("game-end");
+		             var obstacle1 = document.getElementById("obstacle1");
+                     var myplane = document.getElementById("Flight");
+					 var obstacle2 = document.getElementById("obstacle2");
+					 var obstacle1_box = { top: 0 ,bottom:0, left:0, right:0 };
+					 var obstacle2_box = { top: 0 ,bottom:0, left:0, right:0 };
+					 var Flight_box = { top: 0 , bottom:0, left:0, right:0 };
+                     obstacle1_box = obstacle1.getBoundingClientRect();
+					 obstacle2_box = obstacle2.getBoundingClientRect();
+					 Flight_box = myplane.getBoundingClientRect();
+					 if (obstacle1_box.top > Flight_box.top && obstacle1_box.bottom < Flight_box.bottom && obstacle1_box.left < Flight_box.right && obstacle1_box.left > Flight_box.left){
+					 collission=true;
+					 gameover.style.display="block";
+					 }
+					 if (obstacle2_box.top > Flight_box.top && obstacle2_box.bottom < Flight_box.bottom && obstacle2_box.left < Flight_box.right && obstacle2_box.left > Flight_box.left){
+					 collission=true;
+					 gameover.style.display="block";
+					 }
+					 
+		},33);	
+			function moveSelection(event) {                    
+                switch (event.keyCode) {
+                    case 37:
+					    if(collission){
+						  return;
+						}
+                        var element1 = document.getElementById("Main");
+                        var element = document.getElementById("Flight");
+				        if(element.style.left>element1.style.left){
+						element.style.left = parseInt(element.style.left) - 10 + 'px';
+				        }
+						
+                    break;
+
+                    case 39: 
+					 if(collission){
+						  return;
+					 }
+					 var element1 = document.getElementById("Main");
+					 var box = { right: 0 };
+                     try {
+                     box = element1.getBoundingClientRect();
+                     } 
+                     catch(e) 
+                     {}
+                     var element = document.getElementById("Flight");
+					 var elem = { right: 0 };
+					 try {
+                     elem = element.getBoundingClientRect();
+                     } 
+                     catch(e) 
+                     {}
+					 if(box.right>elem.right+10){
+					 element.style.left = parseInt(element.style.left) + 10 + 'px';
+					 }
+					 
+                    break;
+
+                    case 38:
+					     if(collission){
+						  return;
+						}
+					    var element1 = document.getElementById("Main");
+                        var element = document.getElementById("Flight");
+						
+				        if(element.style.top>element1.style.top){
+						element.style.top = parseInt(element.style.top) - 10 + 'px';
+						}
+                    break;
+
+                    case 40:
+					 if(collission){
+						  return;
+						}
+                        var element1 = document.getElementById("Main");
+					    var box = { bottom: 0 };
+                        try {
+                        box = element1.getBoundingClientRect();
+                        } 
+                        catch(e) 
+                        {}
+					
+                        var element = document.getElementById("Flight");
+	    				var ele = { bottom: 0 };
+                        try {
+                        ele= element.getBoundingClientRect();
+                        } 
+                        catch(e) 
+                        {}
+					    if(ele.bottom<box.bottom){
+						element.style.top = parseInt(element.style.top) + 10 + 'px';
+					    }
+                    break;
+                }
+            };
+
+		function loop(){
+			window.addEventListener("keydown", moveSelection);
+		}	
+  </script>
+</body>
+</html>
